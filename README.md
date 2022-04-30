@@ -23,7 +23,7 @@ Details how to create your Token or generate a base64 for Basic method, please v
 
 **Required** Configuration file with Edge Functions details
 
-In the yaml file, you have the configuration example please fill with your own data:
+In the __action.yaml__ file, you have the configuration example please fill with your own data:
 * name: name of your Edge Function
 * path: path and filename with the source code using JavaScript language.
 * domain: your domain, maybe a CNAME record
@@ -46,6 +46,8 @@ You could use this URI, ir necessary you can create a CNAME at your DNS. For loc
 
 ## Example usage on Github Action
 
+File available
+
 ```
 uses: actions/azion-edge-function@v1
 with:
@@ -55,7 +57,7 @@ with:
 
 ## Example of configuration file
 
-A YAML format file, containing the details of your edge function at Azion.
+Edit the __action.yaml__ file, containing the details of your edge function at Azion.
 
 Not change the edge_functions name, and name of parameters, just fill the values. The exception is for args, when you need to change the arg names and arg values.
 ```
