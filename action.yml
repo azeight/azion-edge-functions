@@ -1,0 +1,23 @@
+name: 'Azion Edge Functions'
+description: 'Create or update an Edge Function on Azion Edge Nodes.'
+inputs:
+  config:
+    description: 'YAML config file'
+    required: false
+    default: 'config.yml'
+  azion-auth:
+    description: 'Your auth'
+    required: false
+outputs:
+  domain:
+    description: 'Azion domain mapper'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.azion-auth }}
+    - ${{ inputs.config }}
+branding:
+  icon: chevron-up
+  color: orange
+
