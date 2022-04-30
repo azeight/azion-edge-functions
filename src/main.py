@@ -494,9 +494,12 @@ class AzionAPI:
 authentication = sys.argv[1]
 yamlFile = sys.argv[2]
 
+
 #with open(r'/Users/dv/Scripts/hackaton/config.yaml') as file:
 with open(yamlFile) as file:
     content = yaml.full_load(file)
+
+    urls = []
 
     for edgeFunctionRoot, funcList in content.items():
         for func in funcList:
@@ -547,9 +550,13 @@ with open(yamlFile) as file:
                 rule = azion.getRules(edgeAppID,pathURI)
                 if (rule == 0):
                     azion.createRule(pathURI, edgeAppID, appFunction['id'], pathURI)
+                
+                urls.append("https://"+domain['domain_name']+pathURI)
 
-                dt=datetime.today() + timedelta(minutes=5)
-                whenExec = dt.strftime("%H:%M:%S")
-
-                print("::set-output name=domain::https://"+domain['domain_name']+pathURI+"\n Access the url with your function after "+whenExec)
+    if(len(urls)>0):
+        dt=datetime.today() + timedelta(minutes=5)
+        whenExec = dt.strftime("%H:%M:%S")
+        s = 's' if len(urls)>1 else ''
+        print("::set-output name=domain::Access the url"+s+" with your function"+s+" after "+whenExec+" :  [ "+(' , '.join(urls))+" ]" )
+            
 
