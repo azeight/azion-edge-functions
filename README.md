@@ -73,3 +73,4 @@ edge_functions:
     active: "true"
 ```
 
+More details on [Azion site](www.azion.com)
