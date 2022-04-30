@@ -2,7 +2,7 @@
 
 Create or update an Edge Functions on Azion Edge Nodes.
 
-## Inputs
+## API Inputs
 
 ## `azion-auth`
 
