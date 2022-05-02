@@ -2,6 +2,8 @@
 
 Create or update an Edge Functions on Azion Edge Nodes.
 
+The domain name is the key for decision to a create or update Edge Function, then if the domain name is already on use by an Edge Function, the function will be updated.
+
 ## Inputs
 
 ## `azion-auth`
