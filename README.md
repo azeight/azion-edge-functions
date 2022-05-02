@@ -4,7 +4,8 @@ Create or update an Edge Functions on Azion Edge Nodes.
 
 The domain name is the key for decision to a create or update an Edge Function, then if the domain name is already on use by an Edge Function, the function will be updated.
 
-## Inputs
+
+## API Inputs
 
 ## `azion-auth`
 
@@ -23,17 +24,17 @@ Details how to create your Token or generate a base64 for Basic method, please v
 
 ## `config`
 
-**Required** Configuration file with Edge Functions details
+**Required** Configuration file with Azion Edge Functions details
 
-In the yaml file, you have the configuration example please fill with your own data:
+In the __action.yaml__ file, you have the configuration example please fill with your own data:
 * name: name of your Edge Function
-* path: path and filename with the source code using JavaScript language.
-* domain: your domain, maybe a CNAME record
+* path: path and filename with the source code using __JavaScript__ language.
+* domain: your domain, maybe a __CNAME__ record
 * args: parameters for use in the edge function at runtime, the argument name and value of each argument used on the JavaScript code.
   * arg1 "first argument name" : "value of first argument"
   * arg2 "second argument name" : "value of second argument" 	
   * arg..N "N argument" : "value of N argument" 
-* path_uri: URI path of your edge function
+* path_uri: the __URI__ path of your edge function
 * active: boolean that control if your Edge Function is active or not, domain values (true|false). Your function is only accessible when it is active true.
 
 
@@ -41,12 +42,14 @@ In the yaml file, you have the configuration example please fill with your own d
 
 ## `domain`
 
-URI of the edge function deployed.
+__URI__ of the edge function deployed.
 
-You could use this URI, ir necessary you can create a CNAME at your DNS. For local use and testing, you can change your /etc/hosts for your domain.
+You could use this __URI__, ir necessary you can create a __CNAME__ at your __DNS__. For local use and testing, you can change your __/etc/hosts__ for your domain.
 
 
 ## Example usage on Github Action
+
+File available
 
 ```
 uses: actions/azion-edge-function@v1
@@ -57,9 +60,9 @@ with:
 
 ## Example of configuration file
 
-A YAML format file, containing the details of your edge function at Azion.
+Edit the __action.yaml__ file, containing the details of your edge functions at Azion.
 
-Not change the edge_functions name, and name of parameters, just fill the values. The exception is for args, when you need to change the arg names and arg values.
+Don't change the __edge_functions__ name, and name parameters but instead just complete with desired values. The exception is for args, when you need to change the arg names and arg values.
 ```
 edge_functions:
   -
@@ -73,3 +76,4 @@ edge_functions:
     active: "true"
 ```
 
+More details on [Azion site](www.azion.com)
