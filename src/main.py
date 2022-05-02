@@ -50,7 +50,13 @@ class AzionAPI:
             'Authorization': '{basic64}'.format(basic64=basic64),
             'Content-Type': 'application/json'
         }
+
+        #response = self._callPostMethod("/tokens", payload)
+
         response = requests.request("POST", url, headers=headers, data=payload)
+        if response.ok == False:
+            raise Exception("\nERROR: "+response.text+"\nCALL: /token \nPAYLOAD: "+payload)
+
         responseJson = response.json()
         self._token = responseJson.get('token')
     
@@ -152,7 +158,7 @@ class AzionAPI:
     ############################
     #### Cria novo Dominio ####
     ########################### 
-    def createDomain(self,name, cnames, edgeAppId=False, cnameAccessOnly=False, isActive=True, environment='production'): 
+    def createDomain(self,name, cnames, edgeAppId=False, environment='production', cnameAccessOnly=False, isActive=True): 
 
         if(isinstance(cnames,str)):
             if "," in cnames:
@@ -214,9 +220,9 @@ class AzionAPI:
     #####################################
     #### Criacao de Edge Application ####
     ##################################### 
-    def createEdgeApp(self,cname,deliveryProto="http,https", httpPort=80, httpsPort=443, minimunTLS="",active=True, applicationAcceleration=False, caching=True, deviceDetection=False, 
+    def createEdgeApp(self,cname,address="to.remove.com", deliveryProto="http,https", httpPort=80, httpsPort=443, minimunTLS="",active=True, applicationAcceleration=False, caching=True, deviceDetection=False, 
                       edgeFirewall=False, edgeFunctions=True, imageOptimization=False, l2Caching=False, loadBalancer=False, rawLogs=False, waf=False,
-                            originType="single_origin", address="to.remove.com", originProtoPolicy="preserve", hostHeader="${host}", 
+                            originType="single_origin", originProtoPolicy="preserve", hostHeader="${host}", 
                             browserCacheSettings="honor", browserCacheSettingsTTL=0,cdnCacheSettings="honor", cdnCacheSettingsTTL=0): 
 
         
@@ -494,7 +500,6 @@ class AzionAPI:
 authentication = sys.argv[1]
 yamlFile = sys.argv[2]
 
-
 #with open(r'/Users/dv/Scripts/hackaton/config.yaml') as file:
 with open(yamlFile) as file:
     content = yaml.full_load(file)
@@ -509,6 +514,8 @@ with open(yamlFile) as file:
                 fileContent = f.read()
 
             cname       = func['domain']
+            address     = func['origin']
+            env         = func['env']
             funcName    = func['name']
             code        = fileContent
             args        = func['args']
@@ -526,9 +533,9 @@ with open(yamlFile) as file:
                 domainID = domain['id']
                 edgeAppID = domain['edge_application_id']
             else:
-                edgeApp = azion.createEdgeApp( cname )
+                edgeApp = azion.createEdgeApp( cname, address )
                 if(edgeApp != 0):
-                    domain = azion.createDomain(cname,cname,edgeApp['id'])
+                    domain = azion.createDomain(cname,cname,edgeApp['id'], env)
                     if(domain != 0):
                         domainID = domain['id']
                         edgeAppID = domain['edge_application_id']
